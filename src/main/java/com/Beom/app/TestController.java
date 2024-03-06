@@ -13,11 +13,12 @@ public class TestController {
 	@GetMapping("/")
 	public String test() {
 		//trace, debug, info, warn, error
-		log.info("info massage");
-		log.error("Error Message");
+		log.error("익셉션 빌생");
 		log.warn("warn message");
+		log.info("카카오 api키");
 		log.debug("debug message");
 		log.trace("trace message");
+		
 		return "index";
 	}
 }
