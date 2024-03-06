@@ -6,5 +6,7 @@
   	<typeAliases>
   		<typeAlias type="com.Beom.app.board.BoardVO" alias="BoardVO"/>
   		<typeAlias type="com.Beom.app.board.notice.NoticeVO" alias="NoticeVO"/>
+  		
+  		<typeAlias type="com.Beom.app.util.Pager" alias="Pager"/>
   	</typeAliases>
   </configuration>

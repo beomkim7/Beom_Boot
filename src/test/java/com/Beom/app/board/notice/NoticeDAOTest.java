@@ -9,14 +9,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.Beom.app.board.BoardVO;
+import com.Beom.app.util.Pager;
+
+import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
+@Slf4j
 class NoticeDAOTest {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
+	
 	@Test
 	void getListTest()throws Exception{
-		List<BoardVO> ar = noticeDAO.getList();
+		Pager pager = new Pager();
+		pager.setPage(1L);		
+		pager.makeIndex();
+		
+		Long totalcount = noticeDAO.getTotalCount(pager);
+		pager.makeNum(totalcount);
+		
+		log.info("pager {} ",pager);
+		
+		List<BoardVO> ar = noticeDAO.getList(pager);
 		assertEquals(10, ar.size());
 	}
 	
