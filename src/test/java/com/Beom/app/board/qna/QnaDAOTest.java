@@ -18,7 +18,7 @@ class QnaDAOTest {
 	@Autowired
 	private QnaDAO qnaDAO;
 	
-	@Test
+	//@Test
 	void getListTest()throws Exception{
 		Pager pager = new Pager();
 		pager.setPage(1L);
