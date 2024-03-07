@@ -4,8 +4,10 @@
   "D:\mybatis-3-config.dtd">
   <configuration>
   	<typeAliases>
+  		<typeAlias type="com.Beom.app.board.FileVO" alias="FileVO"/>
   		<typeAlias type="com.Beom.app.board.BoardVO" alias="BoardVO"/>
   		<typeAlias type="com.Beom.app.board.notice.NoticeVO" alias="NoticeVO"/>
+  		<typeAlias type="com.Beom.app.board.qna.QnaVO" alias="QnaVO"/>
   		
   		<typeAlias type="com.Beom.app.util.Pager" alias="Pager"/>
   	</typeAliases>

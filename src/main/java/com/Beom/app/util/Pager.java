@@ -8,10 +8,10 @@ import lombok.Setter;
 @Getter
 public class Pager {
 	
-	private Long Page;	//페이지 번호
-	private Long PerPage;	//한페이지당 출력 갯수
+	private Long page;	//페이지 번호
+	private Long perPage;	//한페이지당 출력 갯수
 	
-	private Long StartIndex;
+	private Long startIndex;
 	
 	private Long totalPage;
 	private Long startNum;
@@ -31,7 +31,7 @@ public class Pager {
 		//인덱스번호 1 ->0
 		//인덱스번호 2 ->10
 		//인덱스번호 3 ->20
-		this.StartIndex= (this.getPerPage()-1)*this.getPage();
+		this.startIndex= (this.getPage()-1)*this.getPage();
 		
 	}
 	
@@ -42,7 +42,8 @@ public class Pager {
 	      }
 	      
 	      //1. 총 갯수로 총 페이지 수 구하기
-	      Long totalPage=0L;
+	      totalPage=totalCount/this.getPerPage();
+	      
 	      if(totalCount%this.getPerPage()!=0) {
 	         //totalPage=totalPage+1;
 	         totalPage++;
@@ -87,17 +88,17 @@ public class Pager {
 	//Getter		멤버번수명 첫글자 대문자
 	//public 리턴타입 get멤버변수명(){}
 	public Long getPage() {
-		if(this.Page == null || this.Page < 1) {
-			this.Page=1L;
+		if(this.page == null || this.page < 1) {
+			this.page=1L;
 		}
-		return this.Page;
+		return this.page;
 	}
 	
 	public Long getPerPage() {
-		if(this.PerPage ==null || this.PerPage <1) {
-			this.PerPage=10L;			
+		if(this.perPage ==null || this.page <1) {
+			this.perPage=10L;			
 		}
-		return this.PerPage;
+		return this.perPage;
 	}
 	
 	public String getSearch() {
