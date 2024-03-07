@@ -33,11 +33,15 @@
   	
   	<insert id="add" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="boardNum">
   		INSERT INTO QNA
-  		(BOARDWRITER,BOARDTITLE,BOARDCONTENTS,BOARDDATE,BOARDHIT)
+  		(BOARDWRITER,BOARDTITLE,BOARDCONTENTS,BOARDDATE,BOARDHIT,BOARDREF,BOARDSTEP,BOARDDEPTH)
   		VALUES
-  		(#{boardWriter},#{boardTitle},#{boardContents},now(),0)
+  		(#{boardWriter},#{boardTitle},#{boardContents},now(),0,0,0,0)
   		<!--  null값시 자동증가  -->
   	</insert>
+  	
+  	<update id="refUpdate" parameterType="BoardVO">
+  		UPDATE QNA SET BOARDREF=#{boardNum} WHERE BOARDNUM=#{boardNum}
+  	</update>
   	
   	<insert id="addFile" parameterType="FileVO">
   		INSERT INTO QNAFILES

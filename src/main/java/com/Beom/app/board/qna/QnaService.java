@@ -32,19 +32,34 @@ public class QnaService implements BoardService{
 	
 	@Override
 	public int add(BoardVO boardVO, MultipartFile[] attachs) throws Exception {
+		int result = qnaDAO.add(boardVO);
+		//ref를 업데이트
+		result= qnaDAO.refUpdate(boardVO);
 		
-		return 0;
+		for(MultipartFile multipartFile:attachs) {
+			if(multipartFile.isEmpty()) {
+				continue;
+			}
+			String filename = fileManager.fileSave(uploadPath, multipartFile);
+			FileVO fileVO = new FileVO();
+			fileVO.setBoardNum(boardVO.getBoardNum());
+			fileVO.setFileName(filename);
+			fileVO.setOriName(multipartFile.getOriginalFilename());			
+			result = qnaDAO.addFile(fileVO);
+		}
+		
+		return result;
 	}
 	@Override
 	public BoardVO getDetail(BoardVO boardVO) throws Exception {
-
-		return null;
+		
+		return qnaDAO.getDetail(boardVO);
 	}
 	
 	@Override
 	public FileVO getFileDetail(FileVO fileVO) throws Exception {
 		
-		return null;
+		return qnaDAO.getFileDetail(fileVO);
 	}
 	
 }

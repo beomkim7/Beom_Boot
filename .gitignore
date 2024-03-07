@@ -1,5 +1,6 @@
 ###custtom###
 application-dev.properties
+application-prod.properties
 
 HELP.md
 target/
