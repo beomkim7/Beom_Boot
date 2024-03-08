@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "D:\mybatis-3-mapper.dtd">
+  <mapper namespace="com.Beom.app.member.MemberDAO">
+  
+  <select id="getDetail" parameterType="MemberVO" resultType="MemberVO">
+  	SELECT * FROM MEMBER
+  	WHERE USERNAME=#{username}
+  </select>
+  
+  <insert id="add" parameterType="MemberVO">
+  	INSERT INTO MEMBER
+  	VALUES(#{username},#{password},#{name},#{email},#{phone},#{address})
+  </insert>
+  
+  </mapper>
