@@ -46,7 +46,7 @@ public class MemberVO implements UserDetails {
 	@Override
 	public boolean isAccountNonExpired() {
 		// 계정이 만료되었나
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isAccountNonLocked() {
@@ -61,6 +61,6 @@ public class MemberVO implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

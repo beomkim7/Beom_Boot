@@ -35,8 +35,7 @@ public class MemberController {
 	
 	@GetMapping("update")
 	public void update(Model model)throws Exception{
-		MemberVO memberVO = new MemberVO();
-		model.addAttribute("memberVO",memberVO);
+		
 	}
 	
 	@PostMapping("update")//검증													검증결과

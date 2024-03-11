@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <!-- Topbar -->
@@ -50,7 +51,26 @@
                 </form>
             </div>
         </li>
+<!-- 로그인 전 보이는 구간 시작  -->
+				<sec:authorize access="!isAuthenticated()">
+					<li class="nav-item mx-1">
+						<a class="nav-link" href="/member/add">
+							<i class="fas fa-user-plus">회원가입</i>
+						</a>						
+					</li>
+				</sec:authorize>
+				
+				<sec:authorize access="!isAuthenticated()">
+					<li class="nav-item mx-1">
+						<a class="nav-link" href="/member/login">
+							<i class="fas fa-lock">로그인</i>
+						</a>						
+					</li>
+				</sec:authorize>
 
+<!-- 로그인 전 보이는 구간 마지막-->		
+<!-- 로그인 성공시 보이는 구간  -->
+	<sec:authorize access="isAuthenticated()">
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -200,6 +220,8 @@
                 </a>
             </div>
         </li>
+	</sec:authorize>	
+<!--	로그인 성공시 보이는 구간  -->
 
     </ul>
 
