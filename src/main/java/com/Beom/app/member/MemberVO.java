@@ -1,5 +1,10 @@
 package com.Beom.app.member;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.Beom.app.member.goups.MemberJoinGroup;
 import com.Beom.app.member.goups.MemberUpdateGroup;
 
@@ -14,7 +19,8 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class MemberVO {
+public class MemberVO implements UserDetails {
+	
 
 	@NotBlank(message = "꼭 입력하세요", groups = {MemberJoinGroup.class, MemberUpdateGroup.class})
 	private String username;
@@ -31,4 +37,30 @@ public class MemberVO {
 	private String email;
 	private String address;
 	private String name;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// 계정이 만료되었나
+		return false;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// 계정이 잠김 여부
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// 비밀번호 유효기간 기준으로 사용가능여부
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

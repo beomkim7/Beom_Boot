@@ -13,7 +13,7 @@ public class MemberService {
 	//삭제할 메서드. . .
 	public MemberVO detail() throws Exception{
 		MemberVO memberVO = new MemberVO();
-		memberVO.setUsername("winter");
+		memberVO.setUsername("mym9211");
 		return memberDAO.getDetail(memberVO);
 	}
 	

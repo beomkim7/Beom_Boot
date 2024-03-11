@@ -18,6 +18,7 @@ import com.Beom.app.util.FileManager;
 import com.Beom.app.util.Pager;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -44,14 +45,18 @@ public class NoticeController {
 		return "board/list";
 	}
 	
-	@GetMapping("add")
+	//@GetMapping("add")
 	public String add()throws Exception{
 		return "board/add";
 	}
 	
-	@PostMapping("add")
-	public String add(NoticeVO noticeVO,MultipartFile [] attach)throws Exception{
+	@GetMapping("add")
+	public String add(HttpSession session,NoticeVO noticeVO,MultipartFile [] attach)throws Exception{
+		
+		if(session.getAttribute("member") != null) {
+		
 		int result = noticeService.add(noticeVO,attach);				
+		}
 		
 		return "redirect:./list";
 	}

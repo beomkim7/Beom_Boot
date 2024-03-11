@@ -14,6 +14,7 @@ import com.Beom.app.member.goups.MemberJoinGroup;
 import com.Beom.app.member.goups.MemberUpdateGroup;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +25,13 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@GetMapping("login")
+	public String login(@ModelAttribute MemberVO memberVO)throws Exception{		
+		return "member/login";
+	}
+	
+	
 	
 	@GetMapping("update")
 	public void update(Model model)throws Exception{
