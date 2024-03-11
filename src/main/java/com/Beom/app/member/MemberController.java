@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.Beom.app.member.goups.MemberJoinGroup;
+import com.Beom.app.member.goups.MemberUpdateGroup;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import jakarta.validation.Valid;
@@ -23,6 +25,20 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping("update")
+	public void update(Model model)throws Exception{
+		MemberVO memberVO = new MemberVO();
+		model.addAttribute("memberVO",memberVO);
+	}
+	
+	@PostMapping("update")//검증													검증결과
+	public String update(@Validated(MemberUpdateGroup.class) MemberVO memberVO,BindingResult bindingResult)throws Exception{
+		if(bindingResult.hasErrors()) {
+			return "member/update";
+		}
+		return "redirct:../";
+	}
+	
 	@GetMapping("add")
 	public void add(@ModelAttribute MemberVO memberVO)throws Exception{
 		
@@ -30,7 +46,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("add")
-	public String add(@Valid MemberVO memberVO, BindingResult bindingResult,Model model)throws Exception{
+	public String add(@Validated(MemberJoinGroup.class) MemberVO memberVO, BindingResult bindingResult,Model model)throws Exception{
 		
 		boolean check = memberService.checkMember(memberVO, bindingResult);
 		if(check) {

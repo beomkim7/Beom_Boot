@@ -10,6 +10,13 @@ public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	//삭제할 메서드. . .
+	public MemberVO detail() throws Exception{
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername("winter");
+		return memberDAO.getDetail(memberVO);
+	}
+	
 	public int add(MemberVO memberVO)throws Exception{
 		int result = memberDAO.add(memberVO);
 		return result;
