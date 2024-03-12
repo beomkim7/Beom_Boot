@@ -31,6 +31,25 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping("login")
+	public String login(@ModelAttribute MemberVO memberVO, HttpSession session)throws Exception{	
+		
+		Object obj= session.getAttribute("SPRING_SECURITY_CONTEXT");//속성명 조회해서 값넣기
+		
+		if(obj == null) {
+			return "member/login";
+		}
+		
+		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		String user = contextImpl.getAuthentication().getPrincipal().toString();
+		
+		if(user.equals("anonymousUser")) {
+			return "member/login";
+		}
+		
+		return "redirect:/";
+	}	
+	
 	@GetMapping("page")
 	public void page(HttpSession session)throws Exception{
 		Enumeration<String> en = session.getAttributeNames();//속성명 가져오기
@@ -52,10 +71,6 @@ public class MemberController {
 		
 	}
 	
-	@GetMapping("login")
-	public String login(@ModelAttribute MemberVO memberVO)throws Exception{		
-		return "member/login";
-	}	
 	
 	
 	@GetMapping("update")
@@ -72,7 +87,21 @@ public class MemberController {
 	}
 	
 	@GetMapping("add")
-	public void add(@ModelAttribute MemberVO memberVO)throws Exception{
+	public String add(@ModelAttribute MemberVO memberVO,HttpSession session)throws Exception{
+		Object obj= session.getAttribute("SPRING_SECURITY_CONTEXT");//속성명 조회해서 값넣기
+		
+		if(obj == null) {
+			return "member/add";
+		}
+		
+		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		String user = contextImpl.getAuthentication().getPrincipal().toString();
+		
+		if(user.equals("anonymousUser")) {
+			return "member/add";
+		}
+		
+		return "redirect:/";
 		
 		//model.addAttribute("memberVO", memberVO);
 	}

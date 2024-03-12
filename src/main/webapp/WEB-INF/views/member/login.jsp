@@ -68,15 +68,21 @@
 						                                <div class="p-5">
 						                                    <div class="text-center">
 						                                        <h1 class="h4 text-gray-900 mb-4">Member Login!</h1>
+						                                        
+						                                        <div>
+						                                        	<h3>${param.message}</h3>
+						                                        	<%-- <h3>${message}</h3> 포워드방식 --%>
+						                                        </div>
+						                                        
 						                                    </div>
 						                                    <form:form cssClass="user" modelAttribute="memberVO">
 						                                        <div class="form-group">
-						                                            <form:input path="username"  cssClass="form-control form-control-user"
+						                                            <form:input path="username" value="gkdlqjatj" cssClass="form-control form-control-user"
 						                                                id="username"></form:input>
 						                                             <form:errors path="username"></form:errors>   
 						                                        </div>
 						                                        <div class="form-group">
-						                                            <form:password path="password" cssClass="form-control form-control-user"
+						                                            <form:password path="password" value="123456" cssClass="form-control form-control-user"
 						                                                id="password" ></form:password>
 						                                            <form:errors path="password"></form:errors>																	
 						                                        </div>    
@@ -134,7 +140,11 @@
 
 
 	<c:import url="../temp/script.jsp"></c:import>
-
+	
+	<script type="text/javascript">
+		history.replaceState({}, null, location.pathname);
+	</script>
+	
 </body>
 
 </html>    

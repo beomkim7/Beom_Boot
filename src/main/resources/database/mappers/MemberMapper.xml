@@ -26,7 +26,12 @@
 		<result column="PHONE" property="phone"/> 
 		<result column="EMAIL" property="email"/> 
 		<result column="NAME" property="name"/> 
-		<result column="ADDRESS" property="address"/> 
+		<result column="ADDRESS" property="address"/>
+		<result column="ENABLE" property="enabled"/>
+		<result column="CREDENTIALNONEXPIRED" property="credentialsNonExpired"/>
+		<result column="ACCOUNTNONLOCKED" property="accountNonLocked"/>
+		<result column="ACCOUNTNONEXPIRED" property="accountNonExpired"/>
+		
 		<collection property="roleVOs" javaType="List" ofType="RoleVO">
 			
 			<result column="ROLENAME" property="roleName"/>

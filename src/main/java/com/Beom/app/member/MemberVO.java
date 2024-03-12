@@ -39,6 +39,11 @@ public class MemberVO implements UserDetails {
 	private String address;
 	private String name;
 	
+	private boolean accountNonExpired; 	// 계정이 만료되었나
+	private boolean accountNonLocked;	// 계정이 잠김 여부
+	private boolean credentialsNonExpired; // 비밀번호 유효기간 기준으로 사용가능여부
+	private boolean enabled;			// 사용불가
+	
 	private List<RoleVO> roleVOs;
 	
 	
@@ -53,24 +58,24 @@ public class MemberVO implements UserDetails {
 		}
 		return authorities;
 	}
-	@Override
-	public boolean isAccountNonExpired() {
-		// 계정이 만료되었나
-		return true;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		// 계정이 잠김 여부
-		return true;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// 비밀번호 유효기간 기준으로 사용가능여부
-		return true;
-	}
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+//	@Override
+//	public boolean isAccountNonExpired() {
+//		// 계정이 만료되었나
+//		return true;
+//	}
+//	@Override
+//	public boolean isAccountNonLocked() {
+//		// 계정이 잠김 여부
+//		return true;
+//	}
+//	@Override
+//	public boolean isCredentialsNonExpired() {
+//		// 비밀번호 유효기간 기준으로 사용가능여부
+//		return true;
+//	}
+//	@Override
+//	public boolean isEnabled() {
+//		// 사용불가
+//		return true;
+//	}
 }

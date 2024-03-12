@@ -1,5 +1,6 @@
 package com.Beom.app.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,12 @@ import org.springframework.util.AntPathMatcher;
 @Configuration //xml 파일
 @EnableWebSecurity //보안 나의 보안적용
 public class SecurityConfig {
+	
+	@Autowired
+	private SecurityLoginSuccessHandler handler;
+	
+	@Autowired
+	private SecurityLoginFailHandler handler2;
 	
 	
 	@Bean
@@ -49,7 +56,10 @@ public class SecurityConfig {
 						(login)->
 							login
 								.loginPage("/member/login")
-								.defaultSuccessUrl("/")
+								//.defaultSuccessUrl("/") successHandler와 같이 사용불가
+								.successHandler(handler)
+								//.failureUrl("/notice/list") 로그인 실패했을때 보내고싶은곳
+								.failureHandler(handler2)
 								//파라미터이름이 username이 아닌 'id'를 사용했을경우
 								//.usernameParameter("id")
 								//파라미터이름이 password가 아닌 'pw'를 사용했을경우
@@ -62,6 +72,7 @@ public class SecurityConfig {
 								//.logoutUrl("/member/logout")
 								.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 								.logoutSuccessUrl("/")
+								//.logoutSuccessHandler(null)
 								.invalidateHttpSession(true) //로그아웃시 session만료
 								.permitAll()
 						)
