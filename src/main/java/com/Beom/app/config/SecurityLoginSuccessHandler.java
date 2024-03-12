@@ -20,7 +20,6 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 		log.info("로그인 성공 했을 때 실행");
 		authentication.getPrincipal();//MemverVO
 		
-		response.sendRedirect("/");
-		
+		response.sendRedirect("/");		
 	}
 }
