@@ -1,6 +1,11 @@
 package com.Beom.app.member;
 
+import java.util.Enumeration;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,11 +31,31 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping("page")
+	public void page(HttpSession session)throws Exception{
+		Enumeration<String> en = session.getAttributeNames();//속성명 가져오기
+		while(en.hasMoreElements()) {
+			log.info("=======attribut{}============",en.nextElement());//속성명 조회하기
+		}
+		Object obj= session.getAttribute("SPRING_SECURITY_CONTEXT");//속성명 조회해서 값넣기
+		log.info("===ogj{}",obj);
+		
+		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		String name = contextImpl.getAuthentication().getName();
+		MemberVO memberVO =(MemberVO)contextImpl.getAuthentication().getPrincipal();
+		log.info("====name{}",name);
+		log.info("====memberVO{}",memberVO);
+		
+		//세션 받거나 SecurityContextHolder 이용
+		SecurityContext context = SecurityContextHolder.getContext();
+		name = context.getAuthentication().getName();
+		
+	}
+	
 	@GetMapping("login")
 	public String login(@ModelAttribute MemberVO memberVO)throws Exception{		
 		return "member/login";
-	}
-	
+	}	
 	
 	
 	@GetMapping("update")

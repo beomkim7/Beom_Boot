@@ -9,6 +9,7 @@
   		<typeAlias type="com.Beom.app.board.notice.NoticeVO" alias="NoticeVO"/>
   		<typeAlias type="com.Beom.app.board.qna.QnaVO" alias="QnaVO"/>
   		<typeAlias type="com.Beom.app.member.MemberVO" alias="MemberVO"/>
+  		<typeAlias type="com.Beom.app.member.RoleVO" alias="RoleVO"/>
   		
   		<typeAlias type="com.Beom.app.util.Pager" alias="Pager"/>
   	</typeAliases>

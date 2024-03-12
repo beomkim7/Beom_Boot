@@ -45,12 +45,12 @@ public class NoticeController {
 		return "board/list";
 	}
 	
-	//@GetMapping("add")
+	@GetMapping("add")
 	public String add()throws Exception{
 		return "board/add";
 	}
 	
-	@GetMapping("add")
+	@PostMapping("add")
 	public String add(HttpSession session,NoticeVO noticeVO,MultipartFile [] attach)throws Exception{
 		
 		if(session.getAttribute("member") != null) {

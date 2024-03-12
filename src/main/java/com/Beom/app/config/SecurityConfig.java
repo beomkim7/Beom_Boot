@@ -40,6 +40,7 @@ public class SecurityConfig {
 							.requestMatchers("/").permitAll()
 							.requestMatchers("/member/add").permitAll()
 							.requestMatchers("/notice/list").authenticated()  //로그인 사용자만 가능
+							.requestMatchers("/member/page","/member/logout").authenticated()
 							.requestMatchers("/notice/add","notice/delete").hasRole("ADMIN") //ADMIN만 가능
 							.requestMatchers("notice/update").hasAnyRole("ADMIN","MANAGER") //ADMIN,"MANAGER만 가능
 							.anyRequest().permitAll()

@@ -3,20 +3,45 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "D:\mybatis-3-mapper.dtd">
   <mapper namespace="com.Beom.app.member.MemberDAO">
+	
+	<update id="update" parameterType="MemberVO">
+		UPDATE MEMBER SET PASSWORD=#{password}
+		WHERE USERNAME=#{username}
+	</update>
   
-  <update id="update" parameterType="MemberVO">
-  	UPDATE MEMBER SET PASSWORD=#{password}
-  	WHERE USERNAME=#{username}
-  </update>
+	<select id="getDetail" parameterType="MemberVO" resultMap="getDetailResult">
+		SELECT * 
+		FROM MEMBER M
+			INNER JOIN
+			MEMBERROLE MR
+			USING(USERNAME)
+			INNER JOIN
+			ROLE R
+			USING (ROLENUM)
+		WHERE USERNAME=#{username}
+	</select>
+	<resultMap type="MemberVO" id="getDetailResult">
+		<id column="USERNAME" property="username"/>
+		<result column="PASSWORD" property="password"/> 
+		<result column="PHONE" property="phone"/> 
+		<result column="EMAIL" property="email"/> 
+		<result column="NAME" property="name"/> 
+		<result column="ADDRESS" property="address"/> 
+		<collection property="roleVOs" javaType="List" ofType="RoleVO">
+			
+			<result column="ROLENAME" property="roleName"/>
+		</collection>
+	</resultMap>
   
-  <select id="getDetail" parameterType="MemberVO" resultType="MemberVO">
-  	SELECT * FROM MEMBER
-  	WHERE USERNAME=#{username}
-  </select>
-  
-  <insert id="add" parameterType="MemberVO">
-  	INSERT INTO MEMBER
-  	VALUES(#{username},#{password},#{name},#{email},#{phone},#{address})
-  </insert>
+	<insert id="add" parameterType="MemberVO">
+		INSERT INTO MEMBER
+		VALUES(#{username},#{password},#{name},#{email},#{phone},#{address})
+	</insert>
+	
+	
+	<insert id="memberRole" parameterType="MemberVO">
+		INSERT INTO MEMBERROLE(USERNAME,ROLENUM)
+		VALUES(#{username},3)
+	</insert> 
   
   </mapper>

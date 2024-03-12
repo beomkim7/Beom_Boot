@@ -1,8 +1,11 @@
 package com.Beom.app.member;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.Beom.app.member.goups.MemberJoinGroup;
@@ -10,7 +13,6 @@ import com.Beom.app.member.goups.MemberUpdateGroup;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,17 +33,25 @@ public class MemberVO implements UserDetails {
 	
 	private String passwordCheck;
 	
-
 	private String phone;
 	@Email(groups = {MemberJoinGroup.class,MemberUpdateGroup.class})
 	private String email;
 	private String address;
 	private String name;
-
+	
+	private List<RoleVO> roleVOs;
+	
+	
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		
+		for(RoleVO roleVO:this.getRoleVOs()) {
+			GrantedAuthority g = new SimpleGrantedAuthority(roleVO.getRoleName());
+			authorities.add(g);
+		}
+		return authorities;
 	}
 	@Override
 	public boolean isAccountNonExpired() {

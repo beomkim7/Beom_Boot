@@ -1,20 +1,28 @@
 package com.Beom.app.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class MemberService implements UserDetailsService {
 	
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	//@Qualifier("ps")
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,8 +50,12 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	public int add(MemberVO memberVO)throws Exception{
+		//평문 password를 암호화
+		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 		int result = memberDAO.add(memberVO);
-		return result;
+		//회원의 Role 정보 저장
+		result = memberDAO.memberRole(memberVO);
+		return result; 
 	}
 	
 	//add 검증 메서드
