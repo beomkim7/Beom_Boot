@@ -58,14 +58,20 @@
 							<i class="fas fa-user-plus">회원가입</i>
 						</a>						
 					</li>
-				</sec:authorize>
-				
-				<sec:authorize access="!isAuthenticated()">
+
 					<li class="nav-item mx-1">
 						<a class="nav-link" href="/member/login">
 							<i class="fas fa-lock">로그인</i>
 						</a>						
 					</li>
+
+                    <!-- /* 카카오URL 주소는 변경 불가 */ -->
+                    <li class="nav-item mx-1">                        
+						<a href="/oauth2/authorization/kakao">KakaoLogin</a>
+							<i class="fas fa-lock"> 카카오 로그인</i>
+						</a>						
+					</li>                  
+                    
 				</sec:authorize>
 
 <!-- 로그인 전 보이는 구간 마지막-->		

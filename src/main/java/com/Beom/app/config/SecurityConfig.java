@@ -80,25 +80,32 @@ public class SecurityConfig {
 								.invalidateHttpSession(true) //로그아웃시 session만료
 								.permitAll()
 				)//logout 끝부분
-				.rememberMe(
-						(rememberME)->
-							rememberME
-								.rememberMeParameter("rememberMe")
-								.tokenValiditySeconds(600)
-								.key("rememberMe")
-								.userDetailsService(memberService)
-								.authenticationSuccessHandler(handler)
-								.useSecureCookie(false)
-								
+			      .rememberMe((rememberMe)->rememberMe
+		                  .rememberMeParameter("rememberMe")   //파라미터명
+		                  .tokenValiditySeconds(60)   //remember-me token의 유효 시간 (Cookie) , 초단위
+		                  .key("rememberMe")//키 필수 암거나알아서
+		                  .userDetailsService(memberService)//인증 절차를 진행할 UserDetailService, 필수
+		                  .authenticationSuccessHandler(handler) //Login이 성공했을 때 실행할 Handler
+		                  //.userSecureCookie(false)
+		                  //로그아웃안하고 창나갔다가 다시 들어왔을때 로그인 되어있는지 확인   // JSESSIONID가 만료되도 remember-me를 체크하면 로그인 유지		
 				)//rememberMe 끝부분
-				.sessionManagement(
-						(sessionmanagement)->
-							sessionmanagement
-								.maximumSessions(1)
-								.maxSessionsPreventsLogin(false)
-								.expiredUrl("/expired")
-				)//sessionManagement 끝
-				
+			      .sessionManagement(
+			    		  (sessionManagement)->
+			    		  			sessionManagement
+						                  .maximumSessions(1)       //최대 허용 가능한 session 수, -1 이면 무제한
+						                  .maxSessionsPreventsLogin(false) //false - 이전 사용자 세션만료 true - 현재 접속 하려는 사용자 인증 실패 
+						                  .expiredUrl("/expired")         //세션이 만료되었을 경우 리다이렉트 할 페이지
+						      //동시접속 해보기..안되네...
+						                  
+			    )//sessionManagement 끝부분
+				.oauth2Login(
+						(oauth2Login)->
+							oauth2Login.userInfoEndpoint(
+									(ue)->ue.userService(memberService)
+									)
+				)//oauth2Login 끝부분
+					
+						
 				
 				;
 		return security.build();

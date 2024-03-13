@@ -3,10 +3,12 @@ package com.Beom.app.member;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.Beom.app.member.goups.MemberJoinGroup;
 import com.Beom.app.member.goups.MemberUpdateGroup;
@@ -21,7 +23,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class MemberVO implements UserDetails {
+public class MemberVO implements UserDetails, OAuth2User {
 	
 
 	@NotBlank(message = "꼭 입력하세요", groups = {MemberJoinGroup.class, MemberUpdateGroup.class})
@@ -46,6 +48,16 @@ public class MemberVO implements UserDetails {
 	
 	private List<RoleVO> roleVOs;
 	
+	//Naver, kakao, google 무엇으로 로그인하는지 체크
+	private String social;
+	
+	private Map<String, Object> attributes;
+	
+	@Override
+	public Map<String, Object> getAttributes() {
+	
+		return this.attributes;
+	}
 	
 	
 	@Override

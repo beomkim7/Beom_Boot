@@ -90,7 +90,6 @@
 																<div class="mb-3 form-check">
 																	<input type="checkbox" name="rememberMe" class="form-check-input" id="remember-me">
 																	<label class="form-check-label" for="remember-me">remember-me</label>
-
 																</div>
 																
 																<div class="mb-3 form-check">

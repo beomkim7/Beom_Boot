@@ -31,6 +31,8 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 			cookie.setMaxAge(600);
 			cookie.setPath("/");//서브도메인에서도 사용가능
 			
+			System.out.println("이게맞나?"+cookie);
+			
 			response.addCookie(cookie);			
 		}else {
 			Cookie [] cookies =request.getCookies();

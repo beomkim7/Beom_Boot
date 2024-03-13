@@ -49,7 +49,7 @@
                         	<spring:message code="hello" text="환영"></spring:message>
                         	<sec:authorize access="isAuthenticated()">
 	                        	<sec:authentication property="principal" var="member"/>
-	                 				<spring:message code="welcome" arguments="${member.username},${member.email}" argumentSeparator="," text="환영"></spring:message>
+	                 				<spring:message code="welcome" arguments="${memberVO.username},${memberVO.email}" argumentSeparator="," text="환영"></spring:message>
                  			</sec:authorize>
                         </h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
