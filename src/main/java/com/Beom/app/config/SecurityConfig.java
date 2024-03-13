@@ -10,7 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.AntPathMatcher;
+
+
+import com.Beom.app.member.MemberService;
 
 
 @Configuration //xml 파일
@@ -23,6 +25,8 @@ public class SecurityConfig {
 	@Autowired
 	private SecurityLoginFailHandler handler2;
 	
+	@Autowired
+	private MemberService memberService;
 	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() {
@@ -75,15 +79,30 @@ public class SecurityConfig {
 								//.logoutSuccessHandler(null)
 								.invalidateHttpSession(true) //로그아웃시 session만료
 								.permitAll()
-						)
+				)//logout 끝부분
+				.rememberMe(
+						(rememberME)->
+							rememberME
+								.rememberMeParameter("rememberMe")
+								.tokenValiditySeconds(600)
+								.key("rememberMe")
+								.userDetailsService(memberService)
+								.authenticationSuccessHandler(handler)
+								.useSecureCookie(false)
+								
+				)//rememberMe 끝부분
+				.sessionManagement(
+						(sessionmanagement)->
+							sessionmanagement
+								.maximumSessions(1)
+								.maxSessionsPreventsLogin(false)
+								.expiredUrl("/expired")
+				)//sessionManagement 끝
+				
+				
 				;
 		return security.build();
 	}
 	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		//password 암호화 해주는 객체
-		return new BCryptPasswordEncoder();
-	}
 	
 }

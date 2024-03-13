@@ -48,7 +48,7 @@ public class MemberController {
 		}
 		
 		return "redirect:/";
-	}	
+	}
 	
 	@GetMapping("page")
 	public void page(HttpSession session)throws Exception{

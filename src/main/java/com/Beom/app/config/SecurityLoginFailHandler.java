@@ -14,7 +14,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import com.Beom.app.member.MemberVO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,6 +53,7 @@ public class SecurityLoginFailHandler implements AuthenticationFailureHandler{
 		
 		message = URLEncoder.encode(message,"UTF-8"); //forward사용시 주석 		
 		response.sendRedirect("/member/login?message="+message); //redirect 방식
+		//jsp 파일에 ${param.message}로 불러낸다
 		
 		//forward 방식
 //		request.setAttribute("message", message);
