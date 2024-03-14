@@ -55,17 +55,17 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		if(c.getClientName().equals("Kakao")) {
 			user = this.kakao(user);
 		}
-		
+		((MemberVO)user).setSocial(c.getClientName());
 		return user;
 	}
 	
 	private OAuth2User kakao(OAuth2User oAuth2User) {
-		Map<String, Object> map = oAuth2User.getAttribute("properties");
-		
+		Map<String, Object> map = oAuth2User.getAttribute("properties");		
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUsername(oAuth2User.getName());
 		memberVO.setName(map.get("nickname").toString());
 		memberVO.setAttributes(oAuth2User.getAttributes());
+		
 		
 		List<RoleVO> list = new ArrayList<>();
 		
