@@ -60,9 +60,6 @@ public class SecurityLogoutSuccessHandler implements LogoutSuccessHandler {
 			//log.info("카카오 사용자가 맞다");
 			
 			response.sendRedirect("/");
-		}
-		
-		
-	}
-	
+		}		
+	}	
 }
