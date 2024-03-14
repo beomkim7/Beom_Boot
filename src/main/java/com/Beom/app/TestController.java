@@ -6,17 +6,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Beom.app.ajax.RestTempleTest;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 public class TestController {
-
+	
+	@Autowired
+	private RestTempleTest restTempleTest;
 
 	@GetMapping("/")
-	public String test() {
-
+	public String test()throws Exception {
+		restTempleTest.flux();
 		return "index";
 	}
 	
