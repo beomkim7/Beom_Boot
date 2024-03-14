@@ -1,13 +1,12 @@
 package com.Beom.app.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -15,7 +14,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.Beom.app.member.MemberService;
 
 
+
 @Configuration //xml 파일
+//@EnableWebSecurity(debug = true)
 @EnableWebSecurity //보안 나의 보안적용
 public class SecurityConfig {
 	
@@ -28,9 +29,13 @@ public class SecurityConfig {
 	@Autowired
 	private MemberService memberService;
 	
+	@Value("${security.debugMode}")
+	private boolean debugMode;
+	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() {
 		return web -> web
+				.debug(debugMode)
 				.ignoring()
 				.requestMatchers("/css/**")
 				.requestMatchers("/js/**")
@@ -76,6 +81,7 @@ public class SecurityConfig {
 								//.logoutUrl("/member/logout")
 								.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 								.logoutSuccessUrl("/")
+								.logoutSuccessHandler(null)
 								//.logoutSuccessHandler(null)
 								.invalidateHttpSession(true) //로그아웃시 session만료
 								.permitAll()
